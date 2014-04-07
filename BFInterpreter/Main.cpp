@@ -4,17 +4,17 @@
 
 #include "ArgsParser.h"
 #include "FileLoader.h"
-#include "Interpretor.h"
+#include "Interpreter.h"
 
 int main(int argc, char *argv[])
 {
 	ArgsParser argsParser(argc, argv);
-	InterpretorPtr interpretor = FileLoader::load(argsParser.getInputFilename());
-	if (!interpretor) return EXIT_FAILURE;
+	InterpreterPtr interpreter = FileLoader::load(argsParser.getInputFilename());
+	if (!interpreter) return EXIT_FAILURE;
 
-	while (interpretor->hasNext())
+	while (interpreter->hasNext())
 	{
-		interpretor->doNext();
+		interpreter->doNext();
 	}
 
 	system("pause");

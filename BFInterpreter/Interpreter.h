@@ -6,14 +6,14 @@
 #include "FileLoader.h"
 #include "Memory.h"
 
-class Interpretor
+class Interpreter
 {
 public:
 
 	static std::array<const char, 8> validChar;
 	static bool isValidChar(char c);
 
-	Interpretor(const std::string & source);
+	Interpreter(const std::string & source);
 
 	bool hasNext() const;
 	void doNext();
@@ -25,4 +25,4 @@ private:
 	size_t m_loopStart;
 	Memory m_memory;
 };
-typedef std::shared_ptr<Interpretor> InterpretorPtr;
+typedef std::shared_ptr<Interpreter> InterpreterPtr;

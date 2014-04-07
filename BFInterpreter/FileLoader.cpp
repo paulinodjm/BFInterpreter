@@ -2,15 +2,15 @@
 #include <iostream>
 
 #include "FileLoader.h"
-#include "Interpretor.h"
+#include "Interpreter.h"
 
-InterpretorPtr FileLoader::load(const std::string & filename)
+InterpreterPtr FileLoader::load(const std::string & filename)
 {
 	// open file
 	std::ifstream file(filename);
 	if (!file.is_open())
 	{
-		return InterpretorPtr();
+		return InterpreterPtr();
 	}
 
 	// get the file length
@@ -19,18 +19,18 @@ InterpretorPtr FileLoader::load(const std::string & filename)
 	file.seekg(0, std::ios::beg);
 	if (fileSize == 0)
 	{
-		return InterpretorPtr();
+		return InterpreterPtr();
 	}
 
-	// create the interpretor
+	// create the Interpreter
 	std::string source;
 	for (int i = 0; i < fileSize; i++)
 	{
 		char nextChar = file.get();
-		if (Interpretor::isValidChar(nextChar))
+		if (Interpreter::isValidChar(nextChar))
 		{
 			source.push_back(nextChar);
 		}
 	}
-	return std::make_shared<Interpretor>(source);
+	return std::make_shared<Interpreter>(source);
 }

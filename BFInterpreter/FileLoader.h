@@ -3,14 +3,14 @@
 #include <string>
 #include <memory>
 
-class Interpretor;
-typedef std::shared_ptr<Interpretor> InterpretorPtr;
+class Interpreter;
+typedef std::shared_ptr<Interpreter> InterpreterPtr;
 
 class FileLoader
 {
 public:
 
-	static InterpretorPtr load(const std::string & filename);
+	static InterpreterPtr load(const std::string & filename);
 
 private:
 

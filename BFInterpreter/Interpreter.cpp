@@ -1,7 +1,7 @@
-#include "Interpretor.h"
+#include "Interpreter.h"
 #include <iostream>
 
-std::array<const char, 8> Interpretor::validChar = {
+std::array<const char, 8> Interpreter::validChar = {
 	'>',
 	'<',
 	'+',
@@ -12,7 +12,7 @@ std::array<const char, 8> Interpretor::validChar = {
 	']' 
 };
 
-bool Interpretor::isValidChar(char c)
+bool Interpreter::isValidChar(char c)
 {
 	for (const char & _c : validChar)
 	{
@@ -21,19 +21,19 @@ bool Interpretor::isValidChar(char c)
 	return false;
 }
 
-Interpretor::Interpretor(const std::string & source) :
+Interpreter::Interpreter(const std::string & source) :
 m_source(source),
 m_cursor(0),
 m_loopStart(-1)
 {
 }
 
-bool Interpretor::hasNext() const
+bool Interpreter::hasNext() const
 {
 	return m_cursor < m_source.size();
 }
 
-void Interpretor::doNext()
+void Interpreter::doNext()
 {
 	switch (m_source[m_cursor])
 	{
