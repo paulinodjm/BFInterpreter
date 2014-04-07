@@ -11,10 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{06ED3F06-9588-4517-8671-B14122B55914}</ProjectGuid>
+    <ProjectGuid>{CF00EADC-E12E-4B28-B3F4-4FFAEE2B0A49}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>BFInterpretor</RootNamespace>
-    <ProjectName>BFInterpreter</ProjectName>
+    <RootNamespace>BFInterpreter</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
