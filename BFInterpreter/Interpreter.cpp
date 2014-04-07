@@ -23,8 +23,7 @@ bool Interpreter::isValidChar(char c)
 
 Interpreter::Interpreter(const std::string & source) :
 m_source(source),
-m_cursor(0),
-m_loopStart(-1)
+m_cursor(0)
 {
 }
 
@@ -65,13 +64,17 @@ void Interpreter::doNext()
 		break;
 
 	case '[':
-		m_loopStart = m_cursor;
+		m_loop.push_back(m_cursor);
 		break;
 
 	case ']':
-		if (m_memory.getValue() != 0)
+		if (m_memory.getValue() == 0)
 		{
-			m_cursor = m_loopStart - 1;
+			m_loop.pop_back();
+		}
+		else
+		{
+			m_cursor = m_loop.at(m_loop.size() - 1);
 		}
 		break;
 

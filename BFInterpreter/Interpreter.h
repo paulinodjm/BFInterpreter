@@ -2,6 +2,7 @@
 
 #include <string>
 #include <array>
+#include <vector>
 
 #include "FileLoader.h"
 #include "Memory.h"
@@ -22,7 +23,7 @@ private:
 
 	std::string m_source;
 	size_t m_cursor;
-	size_t m_loopStart;
+	std::vector<size_t> m_loop;
 	Memory m_memory;
 };
 typedef std::shared_ptr<Interpreter> InterpreterPtr;
