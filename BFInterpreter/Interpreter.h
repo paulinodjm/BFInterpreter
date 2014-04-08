@@ -21,6 +21,8 @@ public:
 
 private:
 
+	void skip();
+
 	std::string m_source;
 	size_t m_cursor;
 	std::vector<size_t> m_loop;

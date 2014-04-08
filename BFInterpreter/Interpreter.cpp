@@ -34,14 +34,18 @@ bool Interpreter::hasNext() const
 
 void Interpreter::doNext()
 {
+	static int memCursor = 0;
+
 	switch (m_source[m_cursor])
 	{
 	case '>':
 		m_memory.next();
+		memCursor++;
 		break;
 
 	case '<':
 		m_memory.previous();
+		memCursor--;
 		break;
 
 	case '+':
@@ -64,22 +68,46 @@ void Interpreter::doNext()
 		break;
 
 	case '[':
-		m_loop.push_back(m_cursor);
-		break;
-
-	case ']':
 		if (m_memory.getValue() == 0)
 		{
-			m_loop.pop_back();
+			skip();
 		}
 		else
 		{
-			m_cursor = m_loop.at(m_loop.size() - 1);
+			m_loop.push_back(m_cursor);
 		}
+		break;
+
+	case ']':
+		m_cursor = m_loop.at(m_loop.size() - 1) - 1;
+		m_loop.pop_back();
 		break;
 
 	default:
 		break;
 	}
 	m_cursor++;
+}
+
+void Interpreter::skip()
+{
+	int level = 1;
+	do
+	{
+		m_cursor++;
+		switch (m_source[m_cursor])
+		{
+		case '[':
+			level++;
+			break;
+
+		case ']':
+			level--;
+			break;
+
+		default:
+			break;
+		}
+
+	} while (level > 0);
 }
