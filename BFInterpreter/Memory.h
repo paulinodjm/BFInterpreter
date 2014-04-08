@@ -6,7 +6,7 @@ class Memory
 {
 public:
 
-	Memory(size_t memSize = 254);
+	Memory(size_t memSize = UCHAR_MAX);
 
 	unsigned char getValue();
 	void setValue(unsigned char value);

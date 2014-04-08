@@ -1,23 +1,31 @@
 #include <iostream>
-#include <fstream>
 #include <cstdlib>
 
 #include "ArgsParser.h"
 #include "FileLoader.h"
 #include "Interpreter.h"
-
+#include "Exception.h"
 
 int main(int argc, char *argv[])
 {
-	ArgsParser argsParser(argc, argv);
-	InterpreterPtr interpreter = FileLoader::load(argsParser.getInputFilename());
-	if (!interpreter) return EXIT_FAILURE;
-
-	while (interpreter->hasNext())
+	try
 	{
-		interpreter->doNext();
-	}
+		ArgsParser argsParser(argc, argv);
+		std::cout << argsParser.getInputFilename() << std::endl;
+		InterpreterPtr interpreter = FileLoader::load(argsParser.getInputFilename());
 
-	system("pause");
+		while (interpreter->hasNext())
+		{
+			interpreter->doNext();
+		}
+
+		if (!argsParser.getExit())
+			system("pause");
+	}
+	catch (Exception & exception)
+	{
+		std::cout << exception.what() << std::endl;
+		system("pause");
+	}
 	return EXIT_SUCCESS;
 }

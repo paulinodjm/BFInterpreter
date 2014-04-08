@@ -1,6 +1,8 @@
 #include "Interpreter.h"
+#include "Exception.h"
 #include <iostream>
 
+///////////////////////////////////////////////////////////////////////////
 std::array<const char, 8> Interpreter::validChar = {
 	'>',
 	'<',
@@ -12,6 +14,7 @@ std::array<const char, 8> Interpreter::validChar = {
 	']' 
 };
 
+///////////////////////////////////////////////////////////////////////////
 bool Interpreter::isValidChar(char c)
 {
 	for (const char & _c : validChar)
@@ -21,31 +24,32 @@ bool Interpreter::isValidChar(char c)
 	return false;
 }
 
+///////////////////////////////////////////////////////////////////////////
 Interpreter::Interpreter(const std::string & source) :
 m_source(source),
 m_cursor(0)
 {
 }
 
+///////////////////////////////////////////////////////////////////////////
 bool Interpreter::hasNext() const
 {
-	return m_cursor < m_source.size();
+	bool theEnd = m_cursor >= m_source.size();
+	if (theEnd && m_loop.size() > 0) throw Exception("Syntax error : unexpected eof; missing ']'!");
+	return !theEnd;
 }
 
+///////////////////////////////////////////////////////////////////////////
 void Interpreter::doNext()
 {
-	static int memCursor = 0;
-
 	switch (m_source[m_cursor])
 	{
 	case '>':
 		m_memory.next();
-		memCursor++;
 		break;
 
 	case '<':
 		m_memory.previous();
-		memCursor--;
 		break;
 
 	case '+':
@@ -79,21 +83,25 @@ void Interpreter::doNext()
 		break;
 
 	case ']':
+		if (m_loop.size() == 0) throw Exception("Syntax error : unexpected ']', no opened block!");
 		m_cursor = m_loop.at(m_loop.size() - 1) - 1;
 		m_loop.pop_back();
 		break;
 
 	default:
-		break;
+		throw new Exception("Internal error : unknown character!");
 	}
 	m_cursor++;
 }
 
+///////////////////////////////////////////////////////////////////////////
 void Interpreter::skip()
 {
 	int level = 1;
 	do
 	{
+		if (!hasNext()) throw Exception("Syntax error : unexpected eof; missing ']'!");
+
 		m_cursor++;
 		switch (m_source[m_cursor])
 		{
