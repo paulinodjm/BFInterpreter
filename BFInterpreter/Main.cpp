@@ -11,7 +11,6 @@ int main(int argc, char *argv[])
 	try
 	{
 		ArgsParser argsParser(argc, argv);
-		std::cout << argsParser.getInputFilename() << std::endl;
 		InterpreterPtr interpreter = FileLoader::load(argsParser.getInputFilename());
 
 		while (interpreter->hasNext())

@@ -13,12 +13,12 @@ InterpreterPtr FileLoader::load(const std::string & filename)
 
 	// get the file length
 	file.seekg(0, std::ios::end);
-	size_t fileSize = file.tellg();
+	auto fileSize = file.tellg();
 	file.seekg(0, std::ios::beg);
 	
 	// create the Interpreter
 	std::string source;
-	for (int i = 0; i < fileSize; i++)
+	for (std::streamoff i = 0; i < fileSize; i++)
 	{
 		char nextChar = file.get();
 		if (Interpreter::isValidChar(nextChar))
